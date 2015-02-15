@@ -1,1 +1,1 @@
-npm install && grunt release-git
+commit.cmd && grunt --gruntfile GruntfileBundle.js bundle && grunt release-git
