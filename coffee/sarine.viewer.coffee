@@ -30,7 +30,4 @@ class Viewer
   loadImage : (src)-> rm.loadImage.apply(@,[src])
   setTimeout : (fun,delay)-> rm.setTimeout.apply(@,[@delay])
     
-
-      
-console.log ""
 @Viewer = Viewer
