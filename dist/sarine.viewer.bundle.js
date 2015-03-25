@@ -1,6 +1,6 @@
 
 /*!
-sarine.viewer - v0.0.12 -  Wednesday, March 25th, 2015, 3:40:31 PM 
+sarine.viewer - v0.0.13 -  Wednesday, March 25th, 2015, 4:01:39 PM 
  The source code, name, and look and feel of the software are Copyright © 2015 Sarine Technologies Ltd. All Rights Reserved. You may not duplicate, copy, reuse, sell or otherwise exploit any portion of the code, content or visual design elements without express written permission from Sarine Technologies Ltd. The terms and conditions of the sarine.com website (http://sarine.com/terms-and-conditions/) apply to the access and use of this software.
  */
 
@@ -170,12 +170,8 @@ sarine.viewer - v0.0.12 -  Wednesday, March 25th, 2015, 3:40:31 PM
 
       funcArr = {};
 
-      TimeoutManager.add = function(delay, defer, item) {
+      TimeoutManager.add = function(delay, callback, item) {
         var obj;
-        obj = {
-          defer: defer,
-          item: item
-        };
         if (!funcArr[delay]) {
           setTimeout(function(delay) {
             var temp, unique;
@@ -185,11 +181,15 @@ sarine.viewer - v0.0.12 -  Wednesday, March 25th, 2015, 3:40:31 PM
               return v.item.id;
             }));
             return temp.forEach(function(i) {
-              return i.defer.resolve.apply(i.item);
+              return i.callback.apply(i.item);
             });
           }, delay, delay);
           funcArr[delay] = [];
         }
+        obj = {
+          callback: callback,
+          item: item
+        };
         if ((funcArr[delay].filter(function(v) {
           return v.item.id === obj.item.id;
         })).length === 0) {
@@ -201,11 +201,8 @@ sarine.viewer - v0.0.12 -  Wednesday, March 25th, 2015, 3:40:31 PM
 
     })();
 
-    ResourceManager.prototype.setTimeout = function(delay) {
-      var defer;
-      defer = $.Deferred();
-      TimeoutManager.add(delay, defer, this);
-      return defer;
+    ResourceManager.prototype.setTimeout = function(delay, callback) {
+      return TimeoutManager.add(delay, callback, this);
     };
 
     return ResourceManager;

@@ -1,5 +1,5 @@
 ###!
-sarine.viewer - v0.0.12 -  Wednesday, March 25th, 2015, 3:40:31 PM 
+sarine.viewer - v0.0.13 -  Wednesday, March 25th, 2015, 4:01:39 PM 
  The source code, name, and look and feel of the software are Copyright © 2015 Sarine Technologies Ltd. All Rights Reserved. You may not duplicate, copy, reuse, sell or otherwise exploit any portion of the code, content or visual design elements without express written permission from Sarine Technologies Ltd. The terms and conditions of the sarine.com website (http://sarine.com/terms-and-conditions/) apply to the access and use of this software.
 ###
 
@@ -101,29 +101,30 @@ class ResourceManager
 			# ...
 		funcArr = {}
 
-		@add : (delay,defer,item)->
-			obj = {
-					defer : defer
-					item : item
-				}
+		@add : (delay,callback,item)->
+			
 			if(!funcArr[delay])
 				setTimeout((delay)->
 					temp = funcArr[delay]
 					funcArr[delay] = undefined
 					unique = $.unique(temp.map((v)->v.item.id))
-					temp.forEach((i)->i.defer.resolve.apply(i.item))
-				,delay,delay)
+					temp.forEach((i)->i.callback.apply(i.item)) 
+				,delay,delay)			
 				funcArr[delay] = []
+			obj = {
+					callback : callback
+					item : item
+				}
 			if (funcArr[delay].filter((v)->v.item.id == obj.item.id)).length ==  0
 				funcArr[delay].push obj
 
-
+ 
 		
 	
-	setTimeout : (delay) ->
-		defer = $.Deferred()
-		TimeoutManager.add(delay,defer,@)
-		defer
+	setTimeout : (delay,callback) ->
+
+		TimeoutManager.add(delay,callback,@)
+		
 
 @ResourceManager = ResourceManager
 
