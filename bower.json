@@ -1,6 +1,6 @@
 {
   "name": "sarine.viewer",
-  "version": "0.0.7",
+  "version": "0.0.11",
   "main": "dist/sarine.viewer.js",
   "ignore": [
     ".git",
@@ -9,7 +9,7 @@
     "Gruntfile.js"
   ],
   "dependencies": {
-    "sarine.viewer.resource.manager": "https://github.com/SarineTechnologies/sarine.viewer.resource.manager.git#v0.0.11"
+    "sarine.viewer.resource.manager": "https://github.com/SarineTechnologies/sarine.viewer.resource.manager.git#v0.0.10"
   },
   "exportsOverride": {
         "sarine.*": {        
