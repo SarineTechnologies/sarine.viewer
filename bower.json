@@ -9,7 +9,7 @@
     "Gruntfile.js"
   ],
   "dependencies": {
-    "sarine.viewer.resource.manager": "https://github.com/SarineTechnologies/sarine.viewer.resource.manager.git#v0.0.10"
+    "sarine.viewer.resource.manager": "https://github.com/SarineTechnologies/sarine.viewer.resource.manager.git#v0.0.11"
   },
   "exportsOverride": {
         "sarine.*": {        
