@@ -1,6 +1,6 @@
 
 /*!
-sarine.viewer - v0.0.7 -  Monday, February 23rd, 2015, 1:44:33 PM 
+sarine.viewer - v0.0.7 -  Wednesday, March 25th, 2015, 3:18:11 PM 
  The source code, name, and look and feel of the software are Copyright © 2015 Sarine Technologies Ltd. All Rights Reserved. You may not duplicate, copy, reuse, sell or otherwise exploit any portion of the code, content or visual design elements without express written permission from Sarine Technologies Ltd. The terms and conditions of the sarine.com website (http://sarine.com/terms-and-conditions/) apply to the access and use of this software.
  */
 
@@ -57,8 +57,8 @@ sarine.viewer - v0.0.7 -  Monday, February 23rd, 2015, 1:44:33 PM
       return rm.loadImage.apply(this, [src]);
     };
 
-    Viewer.prototype.setTimeout = function(fun, delay) {
-      return rm.setTimeout.apply(this, [this.delay]);
+    Viewer.prototype.setTimeout = function(delay, callback) {
+      return rm.setTimeout.apply(this, [this.delay, callback]);
     };
 
     return Viewer;
