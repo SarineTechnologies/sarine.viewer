@@ -5,6 +5,7 @@ sarine.viewer - v0.0.13 -  Wednesday, March 25th, 2015, 4:01:39 PM
 class Viewer
   rm = ResourceManager.getInstance();
   constructor: (options) ->
+    console.log("")
     @first_init_defer = $.Deferred()
     @full_init_defer = $.Deferred()
     {@src, @element,@autoPlay,@callbackPic} = options
