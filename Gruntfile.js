@@ -1,5 +1,6 @@
 'use strict';
 module.exports = function(grunt) {
+    "test"
     require('load-grunt-tasks')(grunt)
     var files = ["Gruntfile.js", "copyright.txt", "GruntfileBundle.js", "package.json", "dist/*.js", "coffee/*.coffee", "bower.json", "release.cmd", "commit.cmd"]
     var message = "commit"
