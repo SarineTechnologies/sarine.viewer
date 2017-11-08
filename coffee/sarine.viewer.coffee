@@ -31,8 +31,6 @@ class Viewer
   loadImage : (src)-> rm.loadImage.apply(@,[src])
   loadAssets : (resources, onScriptLoadEnd) ->
     # resources item should contain 2 properties: element (script/css) and src.
-    # resources are loaded from the assets folder.
-    @resourcesPrefix = options.baseUrl + "atomic/v1/assets/"
     if (resources is not null and resources.length > 0)
       scripts = []
       for resource in @resources
@@ -43,9 +41,9 @@ class Viewer
             element.src = @resourcesPrefix + resource.src + cacheVersion
             element.type= "text/javascript"###
           if(resource.element == 'script')
-            resource.push(@resourcesPrefix + resource.src + cacheVersion)
+            resource.push(resource.src + cacheVersion)
           else
-            element.href = @resourcesPrefix + resource.src + cacheVersion
+            element.href = resource.src + cacheVersion
             element.rel= "stylesheet"
             element.type= "text/css"
             $(document.head).prepend(element)
@@ -57,7 +55,7 @@ class Viewer
                 onScriptLoadEnd();
           )
         )
-        
+
     return      
   setTimeout : (delay,callback)-> rm.setTimeout.apply(@,[@delay,callback]) 
     
