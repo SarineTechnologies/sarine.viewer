@@ -57,7 +57,8 @@ class Viewer
                 onScriptLoadEnd();
           )
         )
-      
+        
+    return      
   setTimeout : (delay,callback)-> rm.setTimeout.apply(@,[@delay,callback]) 
     
 @Viewer = Viewer 
