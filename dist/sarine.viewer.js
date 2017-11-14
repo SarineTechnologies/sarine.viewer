@@ -1,6 +1,6 @@
 
 /*!
-sarine.viewer - v0.3.0 -  Thursday, July 9th, 2015, 11:44:40 AM 
+sarine.viewer - v0.3.4 -  Wednesday, November 8th, 2017, 3:00:02 PM 
  The source code, name, and look and feel of the software are Copyright © 2015 Sarine Technologies Ltd. All Rights Reserved. You may not duplicate, copy, reuse, sell or otherwise exploit any portion of the code, content or visual design elements without express written permission from Sarine Technologies Ltd. The terms and conditions of the sarine.com website (http://sarine.com/terms-and-conditions/) apply to the access and use of this software.
  */
 
@@ -56,6 +56,41 @@ sarine.viewer - v0.3.0 -  Thursday, July 9th, 2015, 11:44:40 AM
 
     Viewer.prototype.loadImage = function(src) {
       return rm.loadImage.apply(this, [src]);
+    };
+
+    Viewer.prototype.loadAssets = function(resources, onScriptLoadEnd) {
+      var element, resource, scripts, scriptsLoaded, _i, _len;
+      if (resources !== null && resources.length > 0) {
+        scripts = [];
+        for (_i = 0, _len = resources.length; _i < _len; _i++) {
+          resource = resources[_i];
+
+          /*element = document.createElement(resource.element)
+          if(resource.element == 'script')
+            $(document.body).append(element)
+             * element.onload = element.onreadystatechange = ()-> triggerCallback(callback)
+            element.src = @resourcesPrefix + resource.src + cacheVersion
+            element.type= "text/javascript"
+           */
+          if (resource.element === 'script') {
+            scripts.push(resource.src + cacheVersion);
+          } else {
+            element = document.createElement(resource.element);
+            element.href = resource.src + cacheVersion;
+            element.rel = "stylesheet";
+            element.type = "text/css";
+            $(document.head).prepend(element);
+          }
+        }
+        scriptsLoaded = 0;
+        scripts.forEach(function(script) {
+          return $.getScript(script, function() {
+            if (++scriptsLoaded === scripts.length) {
+              return onScriptLoadEnd();
+            }
+          });
+        });
+      }
     };
 
     Viewer.prototype.setTimeout = function(delay, callback) {
