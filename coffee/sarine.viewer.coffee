@@ -53,5 +53,16 @@ class Viewer
 
     return      
   setTimeout : (delay,callback)-> rm.setTimeout.apply(@,[@delay,callback]) 
-    
+
+  # is http/2 supported
+  isHTTP2: ()->
+    ie = false;
+    win7 = false;
+    try 
+      ie = navigator.userAgent.match( /(MSIE |Trident.*rv[ :])([0-9]+)/ )[ 2 ];
+      win7 = navigator.userAgent.match( /Windows NT 6.1/ )[0];
+    catch e 
+
+    return location.protocol === "https:" && !(win7 && ie)
+
 @Viewer = Viewer 
