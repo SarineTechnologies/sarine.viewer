@@ -63,6 +63,6 @@ class Viewer
       win7 = navigator.userAgent.match( /Windows NT 6.1/ )[0];
     catch e 
 
-    return location.protocol == "https:" && !(win7 && ie)
+    return !(win7 && ie) # location.protocol == "https:" && 
 
 @Viewer = Viewer 
