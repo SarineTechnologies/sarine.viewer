@@ -1,6 +1,6 @@
 
 /*!
-sarine.viewer - v0.3.6 -  Sunday, February 4th, 2018, 4:49:26 PM 
+sarine.viewer - v0.3.6 -  Wednesday, May 9th, 2018, 5:42:44 PM 
  The source code, name, and look and feel of the software are Copyright © 2015 Sarine Technologies Ltd. All Rights Reserved. You may not duplicate, copy, reuse, sell or otherwise exploit any portion of the code, content or visual design elements without express written permission from Sarine Technologies Ltd. The terms and conditions of the sarine.com website (http://sarine.com/terms-and-conditions/) apply to the access and use of this software.
  */
 
@@ -58,17 +58,21 @@ sarine.viewer - v0.3.6 -  Sunday, February 4th, 2018, 4:49:26 PM
       return rm.loadImage.apply(this, [src]);
     };
 
-    Viewer.prototype.loadAssets = function(resources, onScriptLoadEnd) {
-      var element, resource, scripts, scriptsLoaded, _i, _len;
+    Viewer.prototype.loadAssets = function(resources, onScriptLoadEnd, version) {
+      var element, resource, resourceVersion, scripts, scriptsLoaded, _i, _len;
       if (resources !== null && resources.length > 0) {
         scripts = [];
+        resourceVersion = version || cacheAssetsVersion || cacheVersion;
+        if (resourceVersion.indexOf("?") < 0) {
+          resourceVersion = "?" + resourceVersion;
+        }
         for (_i = 0, _len = resources.length; _i < _len; _i++) {
           resource = resources[_i];
           if (resource.element === 'script') {
-            scripts.push(resource.src + cacheVersion);
+            scripts.push(resource.src + resourceVersion);
           } else {
             element = document.createElement(resource.element);
-            element.href = resource.src + cacheVersion;
+            element.href = resource.src + resourceVersion;
             element.rel = "stylesheet";
             element.type = "text/css";
             $(document.head).prepend(element);

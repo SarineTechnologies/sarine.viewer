@@ -1,5 +1,5 @@
 ###!
-sarine.viewer - v0.3.6 -  Sunday, February 4th, 2018, 4:49:26 PM 
+sarine.viewer - v0.3.6 -  Wednesday, May 9th, 2018, 5:42:44 PM 
  The source code, name, and look and feel of the software are Copyright © 2015 Sarine Technologies Ltd. All Rights Reserved. You may not duplicate, copy, reuse, sell or otherwise exploit any portion of the code, content or visual design elements without express written permission from Sarine Technologies Ltd. The terms and conditions of the sarine.com website (http://sarine.com/terms-and-conditions/) apply to the access and use of this software.
 ###
 class Viewer
@@ -29,16 +29,19 @@ class Viewer
   convertElement : Error
   cancel : ()-> rm.cancel(@)
   loadImage : (src)-> rm.loadImage.apply(@,[src])
-  loadAssets : (resources, onScriptLoadEnd) ->
+  loadAssets : (resources, onScriptLoadEnd, version) ->
     # resources item should contain 2 properties: element (script/css) and src.
     if (resources isnt null and resources.length > 0)
       scripts = []
+      resourceVersion = version || cacheAssetsVersion || cacheVersion
+      if resourceVersion.indexOf("?") < 0
+        resourceVersion = "?" + resourceVersion
       for resource in resources
           if(resource.element == 'script')
-            scripts.push(resource.src + cacheVersion)
+            scripts.push(resource.src + resourceVersion)
           else
             element = document.createElement(resource.element)
-            element.href = resource.src + cacheVersion
+            element.href = resource.src + resourceVersion
             element.rel= "stylesheet"
             element.type= "text/css"
             $(document.head).prepend(element)
