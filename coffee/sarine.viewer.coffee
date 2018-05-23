@@ -47,8 +47,9 @@ class Viewer
             $(document.head).prepend(element)
       
       scriptsLoaded = 0;
+      _t = @
       scripts.forEach((script) ->
-          $.getScript(script,  () ->
+          _t.loadScriptAndCache(script, {}, () ->
               if(++scriptsLoaded == scripts.length) 
                 onScriptLoadEnd();
           )
@@ -56,5 +57,14 @@ class Viewer
 
     return      
   setTimeout : (delay,callback)-> rm.setTimeout.apply(@,[@delay,callback]) 
+
+  loadScriptAndCache: ( url, options, success )->
+    options = $.extend( options || {}, {
+      dataType: "script",
+      cache: true, # cache enabled
+      url: url,
+      success: success
+    })  
+    return jQuery.ajax(options);
 
 @Viewer = Viewer 
